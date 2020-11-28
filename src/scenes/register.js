@@ -68,7 +68,7 @@ export default class Login extends Component{
         // console.log(email, password);
 
         // if(Object.keys(errors).length === 0) {
-        //     axios.post('http://127.0.0.1:5000/api/user/login', { email, password })
+        //     axios.post('http://127.0.0.1:5000/api/user/register', { email, password, confrimPassword })
         //         .then(response => {
         //             console.log(response);
         //         })
