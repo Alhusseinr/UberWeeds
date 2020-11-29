@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {AsyncStorage} from "react-native-web";
 import axios from 'axios';
-import { Button } from 'react-native-paper';
+import { Button, Divider } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -86,7 +86,6 @@ export default class Login extends Component{
     }
 
     render() {
-
         return(
             <KeyboardAvoidingView
                 behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -94,7 +93,9 @@ export default class Login extends Component{
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.container}>
-                        <Text style={styles.logo}>Uber-Weeds</Text>
+                        <View>
+                            <Text style={styles.logo}>Uber-Weeds</Text>
+                        </View>                    
                         <View style={styles.inputView}>
                             <TextInput
                                 style={ styles.inputText }
@@ -114,14 +115,14 @@ export default class Login extends Component{
                                 secureTextEntry={true}
                             />
                         </View>
-                        <TouchableOpacity>
-                            <Text style={styles.forgot}>Forgot Password</Text>
+                        <TouchableOpacity style={{ width: '80%', marginBottom: 30 }}>
+                            <Text style={{ color: 'white', textAlign: 'right', fontWeight: 'bold', fontSize: '12' }}>Forgot password?</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.loginBtn} onPress={this.handleLogin}>
                             <Text style={styles.loginText}>Login</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.signupBtn} onPress={this.Register}>
-                            <Text style={styles.loginText}>Register</Text>
+                        </TouchableOpacity>  
+                        <TouchableOpacity>
+                            <Text style={styles.signupBtn}>Don't have an account? <Text style={{ fontWeight: 'bold' }}>Sign up.</Text></Text>
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     inputView: {
         width: '80%',
         backgroundColor: '#465881',
-        borderRadius: 25,
+        borderRadius: 5,
         height: 50,
         marginBottom: 20,
         justifyContent: 'center',
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
 
     forgot: {
         color: 'white',
-        fontSize: 11
+        fontSize: 13
     },
 
     input: {
@@ -179,12 +180,12 @@ const styles = StyleSheet.create({
     loginBtn: {
         width: '80%',
         backgroundColor: '#499B4A',
-        borderRadius: 25,
+        borderRadius: 5,
         height: 50,
         alignItems: "center",
         justifyContent: 'center',
-        marginTop: 40,
-        marginBottom: 10
+        marginTop: 0,
+        marginBottom: 20
     },
 
     loginText: {
@@ -193,6 +194,13 @@ const styles = StyleSheet.create({
     },
 
     signupBtn: {
-        marginTop: 10
+        color: 'white',
+        fontSize: 13,
+        marginTop: 10,
+    },
+
+    signUp: {
+        fontWeight: "bold", 
+        color: 'white',
     }
 });
