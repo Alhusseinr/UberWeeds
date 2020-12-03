@@ -71,7 +71,7 @@ export default class Login extends Component{
         //         })
         //         .catch(e => console.log(e))
         // }
-        console.log('pressed');
+        Actions.Dispensaries();
     };
 
     isEmpty = (email, password) => {
@@ -116,12 +116,12 @@ export default class Login extends Component{
                             />
                         </View>
                         <TouchableOpacity style={{ width: '80%', marginBottom: 30 }}>
-                            <Text style={{ color: 'white', textAlign: 'right', fontWeight: 'bold', fontSize: '12' }}>Forgot password?</Text>
+                            <Text style={{ color: 'white', textAlign: 'right', fontWeight: 'bold', fontSize: 12 }}>Forgot password?</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.loginBtn} onPress={this.handleLogin}>
                             <Text style={styles.loginText}>Login</Text>
                         </TouchableOpacity>  
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.Register}>
                             <Text style={styles.signupBtn}>Don't have an account? <Text style={{ fontWeight: 'bold' }}>Sign up.</Text></Text>
                         </TouchableOpacity>
                     </View>

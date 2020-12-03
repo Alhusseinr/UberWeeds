@@ -36,6 +36,10 @@ export default class Login extends Component{
         this.setState({ password: password });
     };
 
+    handlePasswordConfirmChange = (confirmPassword) => {
+        this.setState({ confirmPassword: confirmPassword });
+    }
+
     _storeToken = async (token) => {
         try{
             await AsyncStorage.setItem('token', token);
@@ -58,27 +62,28 @@ export default class Login extends Component{
     };
 
     handleRegister = async () => {
+        const errors = {}
         const { email, password, confirmPassword } = this.state;
-        if(password !== confirmPassword) {
-            errors.confirmPassword = "passwords do not match"
+        errors = this.isEmpty(email, password);
+        if(Object.keys(errors).length === 0) {
+            if(password !== confirmPassword) {
+                errors.confirmPassword = "passwords do not match"
+                this.setState({ errors });
+            }
+            if(Object.keys(errors).length === 0) {
+                axios
+                    .post('http://127.0.0.1:5000/api/user/register', { email, password })
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(e => console.log(e))
+            }
         }
-        // const errors = this.isEmpty(email, password);
-        // this.setState({ errors });
-
-        // console.log(email, password);
-
-        // if(Object.keys(errors).length === 0) {
-        //     axios.post('http://127.0.0.1:5000/api/user/register', { email, password, confrimPassword })
-        //         .then(response => {
-        //             console.log(response);
-        //         })
-        //         .catch(e => console.log(e))
-        // }
-        console.log('pressed');
+        this.setState({ errors });
     };
 
     Login = () => {
-        Actions.Login()
+        Actions.pop()
     }
 
     isEmpty = (email, password) => {
@@ -97,7 +102,9 @@ export default class Login extends Component{
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.container}>
-                        <Text style={styles.logo}>Uber-Weeds</Text>
+                        <View>
+                            <Text style={styles.logo}>Uber-Weeds</Text>
+                        </View>
                         <View style={styles.inputView}>
                             <TextInput
                                 style={ styles.inputText }
@@ -120,21 +127,18 @@ export default class Login extends Component{
                         <View style={styles.inputView}>
                             <TextInput
                                 style={ styles.inputText }
-                                value={this.state.password}
+                                value={this.state.confirmPassword}
                                 placeholder='Confirm Password'
                                 placeholderTextColor='#003f5c'
                                 onChangeText={text => this.setState({ confirmPassword: text })}
                                 secureTextEntry={true}
                             />
                         </View>
-                        <TouchableOpacity>
-                            <Text style={styles.forgot}>Forgot Password</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.loginBtn} onPress={this.handleLogin}>
+                        <TouchableOpacity style={styles.registerBtn} onPress={this.handleRegister}>
                             <Text style={styles.loginText}>Register</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.signupBtn} onPress={this.Login}>
-                            <Text style={styles.loginText}>Go back to login</Text>
+                            <Text style={styles.loginText}>Already have an account? <Text style={{ fontWeight: 'bold' }}>Go to login.</Text></Text>
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
     inputView: {
         width: '80%',
         backgroundColor: '#465881',
-        borderRadius: 25,
+        borderRadius: 5,
         height: 50,
         marginBottom: 20,
         justifyContent: 'center',
@@ -173,11 +177,6 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 
-    forgot: {
-        color: 'white',
-        fontSize: 11
-    },
-
     input: {
         borderRadius: 5,
         borderColor: 'gray',
@@ -186,17 +185,16 @@ const styles = StyleSheet.create({
         height: 55,
         marginBottom: 20,
         padding: 10,
-        fontSize: 20,
     },
 
-    loginBtn: {
+    registerBtn: {
         width: '80%',
         backgroundColor: '#499B4A',
-        borderRadius: 25,
+        borderRadius: 5,
         height: 50,
         alignItems: "center",
         justifyContent: 'center',
-        marginTop: 40,
+        marginTop: 20,
         marginBottom: 10
     },
 
