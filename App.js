@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import Routes from './routes.js';
+import AppStack from './src/components/tabsNav';
 
 export default class App extends Component{
   render() {
     return (
-      <Routes />
+        <AppStack /> 
     );
   }
 }

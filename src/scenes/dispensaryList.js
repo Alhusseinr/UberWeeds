@@ -13,7 +13,8 @@ export default class dispensaryList extends Component{
 
     render() {
         return(
-            <SafeAreaView style={{ backgroundColor: '#499B4A' }}>
+            <SafeAreaView >
+                {/* This will be mapped once the backend start pulling data from that database */}
                 <ScrollView style={{ height: '100%' }}>
                     <TouchableOpacity>
                         <Card style={styles.card}>

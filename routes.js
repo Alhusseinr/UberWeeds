@@ -11,7 +11,7 @@ class Routes extends Component{
                 <Scene key='root'>
                     <Scene key='Login' component={Login} title='Login' initial={true} hideNavBar={true} />
                     <Scene key='Register' component={Register} title='Register' hideNavBar={true} />
-                    <Scene key="Dispensaries" component={dispensaryList} title='Dispensary List' hideNavBar={true} />
+                    <Scene key="Dispensaries" component={dispensaryList} title='Dispensary List' />
                 </Scene>
             </Router>
         )
